@@ -33,8 +33,7 @@ class LotteryMachine:
                     index = self.ball_list.index(element)
                     prev_index = index-1
                     prev_element = self.ball_list[prev_index]
-                    self.ball_list[prev_index] = element
-                    self.ball_list[index] = prev_element
+                    self.ball_list[prev_index], self.ball_list[index] = element, prev_element
             time.sleep(0.01)
         else:
             self.stop()
@@ -48,17 +47,3 @@ class LotteryMachine:
         while i < 6:
             yield self.ball_list[i]
             i += 1
-
-
-# if __name__ == '__main__':
-#
-#     machine = LotteryMachine()
-#     machine.init_ball_ballast()
-#     machine.start(3)
-#     # machine.stop()
-#     machine_list = list(machine.stop())
-#     for el in machine_list:
-#         print(el.number)
-#     # for balls in machine.ball_list:
-#     #     print(balls.number)
-
