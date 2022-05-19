@@ -1,4 +1,4 @@
-class Pupil():
+class Pupil:
     def __init__(self, name, surname):
         self._name = name
         self._surname = surname
@@ -53,16 +53,32 @@ class Pupil():
     def __str__(self):
         return f"Imie: {self.name}\nNazwisko: {self.surname}\nSrednia ocen: {self.mean()}"
 
+
 class Student(Pupil):
-    def __init__(self,name,surname):
-        super(Student, self).__init__(name,surname)
+    def __init__(self, name, surname):
+        super(Student, self).__init__(name, surname)
+        self.weights = {}
 
+    def complete_weights(self):
+        while True:
+            answer = input("Czy chcesz dodac wage do przedmiotu? (tak/nie): ")
+            if answer == 'tak':
+                subject = input("Wpisz nazwe przedmiotu: ")
+                if subject in self.marks:
+                    weight = float(input("Wpisz wage: "))
+                    self.weights[subject] = weight
+                else:
+                    raise ValueError("Nie mozna dodac wagi do oceny z przedmiotu ktorego nie ma")
+            elif answer == 'nie':
+                break
+            else:
+                raise ValueError("Podales zla odpowiedz")
 
-if __name__ == "__main__":
+    def mean(self):
+        count = 0
+        for subject, mark in self.marks.items():
+            count += mark * self.weights[subject]
+        return round(count/sum(self.weights.values()), 2)
 
-    pupil1 = Pupil('janusz', 'kowalski')
-    pupil1.complete_marks()
-    print(pupil1)
-    print(pupil1.marks)
-    student1 = Student('kacper', 'nowak')
-    print(student1.marks)
+    def __str__(self):
+        return super().__str__()
